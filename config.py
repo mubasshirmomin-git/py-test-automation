@@ -27,8 +27,8 @@ class Config:
     def config_values():
         config_dict = dict()
         config_dict = {'local_connection_string': {'host': 'localhost',
-                                                   'database': 'postgres',
+                                                   'database': 'test',
                                                    'username': 'postgres',
-                                                   'password': 'postgres',
-                                                   'port_id': 5433}}
+                                                   'password': 'postgres@2024',
+                                                   'port_id': 5432}}
         return config_dict
