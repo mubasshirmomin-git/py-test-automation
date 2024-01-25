@@ -25,6 +25,7 @@ def test_table_creation(db_connection):
 
         assert table_exists, f"Table '{test_table_name}' not created successfully"
 
+
 def test_data_inserted(db_connection):
     """
         Test  the data inserted checking the record counts
@@ -33,6 +34,7 @@ def test_data_inserted(db_connection):
         cur.execute(count_rows_query)
         count = cur.fetchone()[0]
         assert count == 3, 'Incorrect number of rows inserted'
+
 
 def test_data_updated(db_connection):
     """
@@ -49,6 +51,7 @@ def test_data_updated(db_connection):
         val = cur.fetchone()[0]
         assert val == 'Rehman Ali', 'Data is not updated successfully'
 
+
 def test_delete(db_connection):
     """
     Delete one record & test the output, no of records after deletion should be 2
@@ -61,6 +64,7 @@ def test_delete(db_connection):
         cur.execute(count_rows_query)
         count = cur.fetchone()[0]
         assert count == 2, "Incorrect number of rows after delete"
+
 
 def test_compare_schemas(db_connection):
     """
@@ -82,7 +86,7 @@ def test_new_column_added(db_connection):
     """
     Add a new column in old test table & test it
     """
-        
+
     # Add new column to the old test table
     with db_connection.cursor() as cur:
         cur.execute(add_column_query)
@@ -94,5 +98,3 @@ def test_new_column_added(db_connection):
         new_column_exists = cur.fetchone() is not None
 
         assert new_column_exists, f"New column '{new_column_name}' not added to '{test_table_name}' successfully"
-
-    

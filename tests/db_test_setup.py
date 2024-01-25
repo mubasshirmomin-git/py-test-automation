@@ -17,26 +17,26 @@ create_table_query = f''' CREATE TABLE IF NOT EXISTS {test_table_name} (
 drop_old_table_query = f'DROP TABLE IF EXISTS {test_table_name}'
 drop_new_table_query = f'DROP TABLE IF EXISTS {new_test_table_name}'
 
-insert_data_query  = f'INSERT INTO {test_table_name} (id, name, designation) VALUES (%s, %s, %s)'
-insert_values = [(1, 'Rehman', 'Data Engineer'), (2, 'Avishek','Data Engineer' ), (3, 'Sundar', 'Data Analyst')]
+insert_data_query = f'INSERT INTO {test_table_name} (id, name, designation) VALUES (%s, %s, %s)'
+insert_values = [(1, 'John Smith', 'Lead Data Engineer'), (2, 'Joe Wilson', 'QA Tester'), (3, 'James Mathew', 'Data Analyst')]
 
-extract_schema_query = f""" SELECT column_name, data_type
-                                        FROM information_schema.columns
-                                        WHERE table_name = '{test_table_name}'"""
+extract_schema_query = f"""SELECT column_name, data_type
+                            FROM information_schema.columns
+                            WHERE table_name = '{test_table_name}'"""
 
-# Pytest fixtures for database setup and other operations 
+
+# Pytest fixtures for database setup and other operations
 @pytest.fixture(scope="module")
 def db_connection():
     # Create a connection to the test database
-    conn = psycopg2.connect( host=connection_string['host'],
-                                     dbname=connection_string['database'],
-                                     user=connection_string['username'],
-                                     password=connection_string['password'],
-                                     port=connection_string['port_id'])
+    conn = psycopg2.connect(host=connection_string['host'],
+                            dbname=connection_string['database'],
+                            user=connection_string['username'],
+                            password=connection_string['password'],
+                            port=connection_string['port_id'])
     yield conn
+    conn.close()  # Close the connection after all tests
 
-    # Close the connection after all tests
-    conn.close()
 
 # Function to extract schema from old test table and create another table
 def create_table_with_same_schema(db_connection):
@@ -58,24 +58,21 @@ def create_table_with_same_schema(db_connection):
 @pytest.fixture(scope="function", autouse=True)
 def create_and_insert(db_connection):
     with db_connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
+        # Drop the tables if exists
+        cur.execute(drop_old_table_query)
+        cur.execute(drop_new_table_query)
 
-            # Drop the tables if exists
-            cur.execute(drop_old_table_query)
-            cur.execute(drop_new_table_query)
+        # Create new table
+        cur.execute(create_table_query)
 
-            # Create new table
-            cur.execute(create_table_query)
+        # insert data into table
+        for record in insert_values:
+            cur.execute(insert_data_query, record)
 
-            # insert data into table
-            for record in insert_values:
-                cur.execute(insert_data_query, record)
+        # Create another table with the same schema
+        create_table_with_same_schema(db_connection)
 
-            # Create another table with the same schema
-            create_table_with_same_schema(db_connection)
-
-    
     db_connection.commit()
-
 
     # Yield to the test
     yield
