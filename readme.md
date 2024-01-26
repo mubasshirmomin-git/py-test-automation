@@ -31,7 +31,7 @@ The project is organized into the following directories:
 2. Install dependencies:
    `pip install -r requirements.txt`
 
-3. Configure the database connection in the config.py file.
+3. Configure the database connection in the `config.py` file.
 
 ## Configuration
 
