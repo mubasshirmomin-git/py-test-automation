@@ -26,12 +26,10 @@ The project is organized into the following directories:
 ## Installation
 
 1. Clone the repository:
-
-- `git clone https://github.com/mubasshirmomin-git/py-test-automation.git`
+   `git clone https://github.com/mubasshirmomin-git/py-test-automation.git`
 
 2. Install dependencies:
-
-- `pip install -r requirements.txt`
+   `pip install -r requirements.txt`
 
 3. Configure the database connection in the config.py file.
 
