@@ -1,28 +1,63 @@
-### This Python project interacts with a PostgreSQL database, running both DML (Data Manipulation Language) and DDL (Data Definition Language) queries.
+# PyTest PostgreSQL Automation Script
 
-- Key Features:
-  Connects to a PostgreSQL database.
-  Executes DML queries including:
-  INSERT: Adds new data to existing tables.
-  UPDATE: Modifies existing data in tables.
-  DELETE: Removes data from tables.
-  SELECT: Retrieves data from tables using various filters and join operations.
-  Executes DDL queries including:
-  CREATE: Creates new tables, databases, or other schema objects.
-  ALTER: Modifies existing schema objects.
-  DROP: Deletes existing schema objects.
-  Provides error handling and logging mechanisms.
-  (Optional) Offers additional functionalities like:
-  Parameterized queries for dynamic execution.
-  Transactions for data consistency.
-  Integration with data visualization tools.
+## Overview
 
-- Requirements:
-  Python 3.8.10
-  psycopg2 library for PostgreSQL communication
-  PostgreSQL database v16
+This repository contains an automation script written in Python using PyTest for testing PostgreSQL database functionality. The script is designed to streamline the testing process, providing a convenient and efficient way to ensure the reliability and correctness of your PostgreSQL database operations.
 
-- Getting Started:
-  Install dependencies: pip install -r requirements.txt
-  Configure database connection details in the project.
-  Run the main script: python index.py
+## Prerequisites
+
+Before running the script, make sure you have the following installed:
+
+Python (version 3.10 or higher)
+PyTest
+PostgreSQL database server
+psycopg2 library (for PostgreSQL connectivity)
+
+## Project Structure
+
+The project is organized into the following directories:
+
+- `src`: Contains Python scripts for database operations and setup (`db_test_setup.py`), and queries for different operations (`query_scripts.py`).
+- `tests`: Includes test script for database connection and DDL/DML operations (`test_db.py`).
+- `config.py`: Configuration file for project options.
+- `requirements.txt`: List of dependencies.
+- `README.md`: Project documentation.
+
+## Installation
+
+1. Clone the repository:
+
+- `git clone https://github.com/mubasshirmomin-git/py-test-automation.git`
+
+2. Install dependencies:
+
+- `pip install -r requirements.txt`
+
+3. Configure the database connection in the config.py file.
+
+## Configuration
+
+Modify the config.py file to set the appropriate values for your local PostgreSQL database:
+
+host : 'localhost',
+database : 'test',
+username : 'postgres',
+password : 'postgres',
+port_id : 5433
+
+## Running Tests
+
+To run the PyTest script, use the following command:
+
+- `pytest tests/test_db.py --verbose`
+
+## Test Cases
+
+The script includes test cases for various PostgreSQL operations, such as:
+
+- Connection establishment
+- CRUD operations (Create, Read, Update, Delete)
+
+## Contributing
+
+Contributions are welcome! If you find any issues or have suggestions for improvements, please feel free to create an issue or submit a pull request.
