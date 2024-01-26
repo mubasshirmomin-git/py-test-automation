@@ -40,7 +40,7 @@ The project is organized into the following directories:
 Modify the config.py file to set the appropriate values for your local PostgreSQL database:
 
 host : 'localhost',
-database : 'test',
+database : 'postgres',
 username : 'postgres',
 password : 'postgres',
 port_id : 5433
