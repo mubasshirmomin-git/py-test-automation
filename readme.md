@@ -8,10 +8,10 @@ This repository contains an automation script written in Python using PyTest for
 
 Before running the script, make sure you have the following installed:
 
-Python (version 3.10 or higher)
-PyTest
-PostgreSQL database server
-psycopg2 library (for PostgreSQL connectivity)
+- Python (version 3.10 or higher)
+- PyTest
+- PostgreSQL database server
+- psycopg2 library (for PostgreSQL connectivity)
 
 ## Project Structure
 
