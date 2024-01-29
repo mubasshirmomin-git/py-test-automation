@@ -10,15 +10,16 @@ connection_string = Config.getConnectionString('local')
 @pytest.fixture(scope="module")
 def db_connection():
     # Create a connection to the test database
-    conn = psycopg2.connect( host=connection_string['host'],
-                                     dbname=connection_string['database'],
-                                     user=connection_string['username'],
-                                     password=connection_string['password'],
-                                     port=connection_string['port_id'])
+    conn = psycopg2.connect(host=connection_string['host'],
+                            dbname=connection_string['database'],
+                            user=connection_string['username'],
+                            password=connection_string['password'],
+                            port=connection_string['port_id'])
     yield conn
 
     # Close the connection after all tests
     conn.close()
+
 
 # Function to extract schema from old test table and create another table
 def create_table_with_same_schema(db_connection):
@@ -41,23 +42,21 @@ def create_table_with_same_schema(db_connection):
 def create_and_insert(db_connection):
     with db_connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
 
-            # Drop the tables if exists
-            cur.execute(drop_old_table_query)
-            cur.execute(drop_new_table_query)
+        # Drop the tables if exists
+        cur.execute(drop_old_table_query)
+        cur.execute(drop_new_table_query)
 
-            # Create new table
-            cur.execute(create_table_query)
+        # Create new table
+        cur.execute(create_table_query)
 
-            # insert data into table
-            for record in insert_values:
-                cur.execute(insert_data_query, record)
+        # insert data into table
+        for record in insert_values:
+            cur.execute(insert_data_query, record)
 
-            # Create another table with the same schema
-            create_table_with_same_schema(db_connection)
+        # Create another table with the same schema
+        create_table_with_same_schema(db_connection)
 
-    
     db_connection.commit()
-
 
     # Yield to the test
     yield
@@ -67,5 +66,3 @@ def create_and_insert(db_connection):
         cur.execute(drop_old_table_query)
         cur.execute(drop_new_table_query)
     db_connection.commit()
-
-

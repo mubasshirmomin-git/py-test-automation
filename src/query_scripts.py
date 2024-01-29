@@ -11,7 +11,7 @@ create_table_query = f''' CREATE TABLE IF NOT EXISTS {test_table_name} (
 
 drop_old_table_query = f'DROP TABLE IF EXISTS {test_table_name}'
 
-insert_data_query  = f'INSERT INTO {test_table_name} (id, name, designation) VALUES (%s, %s, %s)'
+insert_data_query = f'INSERT INTO {test_table_name} (id, name, designation) VALUES (%s, %s, %s)'
 insert_values = [(1, 'Tom Hardy', 'Data Engineer'), (2, 'Hugh Jackman','Data Engineer' ), (3, 'Morgan Freeman', 'Data Analyst')]
 
 extract_schema_query = f""" SELECT column_name, data_type
