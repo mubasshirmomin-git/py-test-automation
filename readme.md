@@ -23,7 +23,7 @@ The project is organized into the following directories:
 - `requirements.txt`: List of dependencies.
 - `README.md`: Project documentation.
 
-## Installation
+## How to Setup
 
 1. Clone the repository:
    `git clone https://github.com/mubasshirmomin-git/py-test-automation.git`
