@@ -3,6 +3,14 @@ from src.db_test_setup import db_connection, create_and_insert
 from src.query_scripts import test_table_name, new_test_table_name, select_data_query, count_rows_query, update_data_query, delete_data_query, table_details_query_original_table, table_details_query_new_table, new_column_name, add_column_query, new_column_check_query
 
 
+def test_postgresql_connection(db_connection):
+    cursor = db_connection.cursor()
+    cursor.execute("SELECT 1")
+    result = cursor.fetchone()
+    assert result[0] == 1
+    cursor.close()
+
+
 def test_table_creation(db_connection):
     """
     Test if the table is created or not
@@ -10,7 +18,7 @@ def test_table_creation(db_connection):
     with db_connection.cursor() as cur:
         cur.execute(table_details_query_original_table)
         table_exists = len(cur.fetchone()) > 0
-
+        
         assert table_exists, f"Table '{test_table_name}' not created successfully"
 
 
